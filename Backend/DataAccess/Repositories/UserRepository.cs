@@ -1,31 +1,54 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
 
 public class UserRepository : IUserRepository
 {
+    private readonly AppDbContext _context;
+
+    public UserRepository(AppDbContext context)
+    {
+        _context = context;
+    }
+
     public async Task<List<User>> GetAllUsersAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Users.AsNoTracking().ToListAsync();
     }
 
-    public async Task<User> GetUserByIdAsync()
+    public async Task<User?> GetUserByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ??
+               throw new Exception("User not found");
     }
 
-    public async Task CreateNewUserAsync(User user)
+    public async Task CreateNewUserAsync(string fullname, string landmarks, string position, string phone)
     {
-        throw new NotImplementedException();
+        var user = new User
+        {
+            Fio = fullname,
+            Landmarks = landmarks,
+            Position = position,
+            Phone = phone
+        };
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateUserAsync(User user)
+    public async Task UpdateUserAsync(int id, string fullname, string landmarks, string position, string phone)
     {
-        throw new NotImplementedException();
+        await _context.Users
+            .Where(u => u.Id == id).ExecuteUpdateAsync(s =>
+                s.SetProperty(u => u.Fio, fullname)
+                    .SetProperty(u => u.Landmarks, landmarks)
+                    .SetProperty(u => u.Position, position)
+                    .SetProperty(u => u.Phone, phone));
     }
 
-    public async Task DeleteUserAsync(User user)
+    public async Task DeleteUserAsync(int id)
     {
-        throw new NotImplementedException();
+        await _context.Users.Where(u => u.Id == id)
+            .ExecuteDeleteAsync();
     }
 }

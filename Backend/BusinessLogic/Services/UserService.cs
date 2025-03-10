@@ -14,26 +14,26 @@ public class UserService : IUserService
 
     public async Task<List<User>> GetAllUsersAsync()
     {
-        throw new NotImplementedException();
+        return await _userRepository.GetAllUsersAsync();
     }
 
-    public async Task<User> GetUserByIdAsync()
+    public async Task<User> GetUserByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _userRepository.GetUserByIdAsync(id);
     }
 
-    public async Task CreateNewUserAsync()
+    public async Task CreateNewUserAsync(string fullname, string landmarks, string position, string phone)
     {
-        throw new NotImplementedException();
+        await _userRepository.CreateNewUserAsync(fullname, landmarks, position, phone);
     }
 
-    public async Task UpdateUserAsync()
+    public async Task UpdateUserAsync(int id, string fullname, string landmarks, string position, string phone)
     {
-        throw new NotImplementedException();
+        await _userRepository.UpdateUserAsync(id, fullname, landmarks, position, phone);
     }
 
-    public async Task DeleteUserAsync()
+    public async Task DeleteUserAsync(int id)
     {
-        throw new NotImplementedException();
+        await _userRepository.DeleteUserAsync(id);
     }
 }

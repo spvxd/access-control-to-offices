@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Services;
+﻿using Backend.API.DTO;
+using BusinessLogic.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,26 +24,30 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddUser([FromBody] User user)
+    public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
     {
+        await _userService.CreateNewUserAsync(dto.Fullname, dto.Landmarks, dto.Position, dto.Phone);
         return Created();
     }
 
-    [HttpPut]
-    public IActionResult GetUserById([FromRoute] int id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
-        return Ok();
+        var user = await _userService.GetUserByIdAsync(id);
+        return Ok(user);
     }
 
     [HttpPatch]
-    public IActionResult UpdateUser([FromBody] User user)
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto user)
     {
+        await _userService.UpdateUserAsync(user.Id, user.Fullname, user.Landmarks, user.Position, user.Phone);
         return NoContent();
     }
 
-    [HttpDelete]
-    public IActionResult DeleteUser([FromRoute] int id)
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
+        await _userService.DeleteUserAsync(id);
         return Ok();
     }
 }
