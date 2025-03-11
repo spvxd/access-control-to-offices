@@ -11,7 +11,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICabinetService, CabinetService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICabinetRepository, CabinetRepository>();
+
 builder.Services.AddControllers();
 var app = builder.Build();
 
