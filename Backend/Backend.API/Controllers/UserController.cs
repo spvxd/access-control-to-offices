@@ -1,4 +1,4 @@
-﻿using Backend.API.DTO;
+using Backend.API.DTO;
 using BusinessLogic.Services;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +40,6 @@ public class UserController : ControllerBase
     [HttpPatch]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto user)
     {
-        Console.WriteLine(user);
         await _userService.UpdateUserAsync(user.Id, user.Fio, user.Landmarks, user.Position, user.Phone);
         return NoContent();
     }
@@ -48,7 +47,6 @@ public class UserController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
-        Console.WriteLine(id);
         await _userService.DeleteUserAsync(id);
         return Ok();
     }

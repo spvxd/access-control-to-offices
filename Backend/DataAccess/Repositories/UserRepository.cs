@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
@@ -26,6 +26,7 @@ public class UserRepository : IUserRepository
         return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ??
                throw new Exception("User not found");
     }
+
 
     public async Task CreateNewUserAsync(string fullname, string position, string phone)
     {
