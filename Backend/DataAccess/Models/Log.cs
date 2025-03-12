@@ -7,7 +7,7 @@ public class Log
     public User? User { get; set; }
     public int? CabinetId { get; set; }
     public Cabinet? Cabinet { get; set; }
-    public DateTime DateTime { get; set; } = DateTime.UtcNow;
+    public DateTime DateTime { get; init; } = DateTime.UtcNow;
     public string Status { get; set; }
     public string Photo { get; set; }
 }

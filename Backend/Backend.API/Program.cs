@@ -12,15 +12,18 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICabinetService, CabinetService>();
+builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICabinetRepository, CabinetRepository>();
+builder.Services.AddScoped<ILogRepository, LogRepository>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") 
+        policy.WithOrigins("http://localhost:5173")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
