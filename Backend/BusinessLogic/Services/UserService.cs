@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+using DataAccess.Models;
 using DataAccess.Repositories;
 
 namespace BusinessLogic.Services;
@@ -21,6 +21,7 @@ public class UserService : IUserService
     {
         return await _userRepository.GetUserByIdAsync(id);
     }
+
 
     public async Task CreateNewUserAsync(string fullname, string position, string phone)
     {
