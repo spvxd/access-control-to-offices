@@ -22,9 +22,9 @@ public class UserService : IUserService
         return await _userRepository.GetUserByIdAsync(id);
     }
 
-    public async Task CreateNewUserAsync(string fullname, string landmarks, string position, string phone)
+    public async Task CreateNewUserAsync(string fullname, string position, string phone)
     {
-        await _userRepository.CreateNewUserAsync(fullname, landmarks, position, phone);
+        await _userRepository.CreateNewUserAsync(fullname, position, phone);
     }
 
     public async Task UpdateUserAsync(int id, string fullname, string landmarks, string position, string phone)

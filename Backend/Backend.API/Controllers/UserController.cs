@@ -26,7 +26,7 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddUser([FromBody] CreateUserDto dto)
     {
-        await _userService.CreateNewUserAsync(dto.Fullname, dto.Landmarks, dto.Position, dto.Phone);
+        await _userService.CreateNewUserAsync(dto.Fio, dto.Position, dto.Phone);
         return Created();
     }
 
@@ -40,13 +40,15 @@ public class UserController : ControllerBase
     [HttpPatch]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto user)
     {
-        await _userService.UpdateUserAsync(user.Id, user.Fullname, user.Landmarks, user.Position, user.Phone);
+        Console.WriteLine(user);
+        await _userService.UpdateUserAsync(user.Id, user.Fio, user.Landmarks, user.Position, user.Phone);
         return NoContent();
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
+        Console.WriteLine(id);
         await _userService.DeleteUserAsync(id);
         return Ok();
     }
