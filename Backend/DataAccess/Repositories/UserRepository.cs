@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
@@ -14,7 +14,11 @@ public class UserRepository : IUserRepository
 
     public async Task<List<User>> GetAllUsersAsync()
     {
-        return await _context.Users.AsNoTracking().ToListAsync();
+        return await _context.Users
+            .Include(u => u.UserCabinets)
+            .ThenInclude(uc => uc.Cabinet)
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task<User?> GetUserByIdAsync(int id)
@@ -23,12 +27,12 @@ public class UserRepository : IUserRepository
                throw new Exception("User not found");
     }
 
-    public async Task CreateNewUserAsync(string fullname, string landmarks, string position, string phone)
+
+    public async Task CreateNewUserAsync(string fullname, string position, string phone)
     {
         var user = new User
         {
             Fio = fullname,
-            Landmarks = landmarks,
             Position = position,
             Phone = phone
         };
