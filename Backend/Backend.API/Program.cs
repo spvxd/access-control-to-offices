@@ -17,6 +17,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICabinetRepository, CabinetRepository>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
 
+
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
