@@ -40,7 +40,7 @@ public class UserController : ControllerBase
     [HttpPatch]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto user)
     {
-        await _userService.UpdateUserAsync(user.Id, user.Fio, user.Landmarks, user.Position, user.Phone);
+        await _userService.UpdateUserAsync(user.Id, user.Fio, user.Position, user.Phone);
         return NoContent();
     }
 
@@ -49,5 +49,13 @@ public class UserController : ControllerBase
     {
         await _userService.DeleteUserAsync(id);
         return Ok();
+    }
+
+    [HttpPatch("landmarks/{id:int}")]
+    public async Task<IActionResult> UpdateUserLandmarks([FromRoute] int id, [FromBody] UpdateLandmarksDto dto)
+    {
+        Console.WriteLine(id);
+        await _userService.UpdateUserLandmarks(id, dto.Landmarks);
+        return NoContent();
     }
 }
