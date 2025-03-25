@@ -28,13 +28,18 @@ public class UserService : IUserService
         await _userRepository.CreateNewUserAsync(fullname, position, phone);
     }
 
-    public async Task UpdateUserAsync(int id, string fullname, string landmarks, string position, string phone)
+    public async Task UpdateUserAsync(int id, string fullname, string position, string phone)
     {
-        await _userRepository.UpdateUserAsync(id, fullname, landmarks, position, phone);
+        await _userRepository.UpdateUserAsync(id, fullname, position, phone);
     }
 
     public async Task DeleteUserAsync(int id)
     {
         await _userRepository.DeleteUserAsync(id);
+    }
+
+    public async Task UpdateUserLandmarks(int id, string landmarks)
+    {
+       await _userRepository.UpdateUserLandmarks(id,  landmarks);
     }
 }

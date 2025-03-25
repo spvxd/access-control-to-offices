@@ -40,12 +40,11 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateUserAsync(int id, string fullname, string landmarks, string position, string phone)
+    public async Task UpdateUserAsync(int id, string fullname,  string position, string phone)
     {
         await _context.Users
             .Where(u => u.Id == id).ExecuteUpdateAsync(s =>
                 s.SetProperty(u => u.Fio, fullname)
-                    .SetProperty(u => u.Landmarks, landmarks)
                     .SetProperty(u => u.Position, position)
                     .SetProperty(u => u.Phone, phone));
     }
@@ -54,5 +53,12 @@ public class UserRepository : IUserRepository
     {
         await _context.Users.Where(u => u.Id == id)
             .ExecuteDeleteAsync();
+    }
+
+    public async Task UpdateUserLandmarks(int id, string landmarks)
+    {
+        await _context.Users.Where(u => u.Id == id).ExecuteUpdateAsync(s =>
+            s.SetProperty(u => u.Landmarks, landmarks
+            ));
     }
 }
